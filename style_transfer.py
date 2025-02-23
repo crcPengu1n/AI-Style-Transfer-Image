@@ -28,11 +28,6 @@ def content_loss(content_weight, content_current, content_original):
     Returns:
     - scalar content loss
     """
-    ############################################################################
-    # TODO: Compute the content loss for style transfer.                       #
-    ############################################################################
-    # Replace "Pass" statement with your code
-    # Flatten the feature maps
     content_current_flat = content_current.view(content_current.shape[1], -1)
     content_original_flat = content_original.view(content_original.shape[1], -1)
 
@@ -43,9 +38,6 @@ def content_loss(content_weight, content_current, content_original):
     content_loss_value = content_weight * loss.sum()
 
     return content_loss_value
-    ############################################################################
-    #                               END OF YOUR CODE                           #
-    ############################################################################
 
 # 9 points
 def gram_matrix(features, normalize=True):
@@ -63,13 +55,6 @@ def gram_matrix(features, normalize=True):
       (optionally normalized) Gram matrices for the N input images.
     """
     gram = None
-    ############################################################################
-    # TODO: Compute the Gram matrix from features.                             #
-    # Don't forget to implement for both normalized and non-normalized version #
-    ############################################################################
-    # Replace "Pass" statement with your code
-    # Reshape the features to flatten the spatial dimensions
-    # (N, C, H, W) -> (N, C, H*W)
     features = features.view(features.size(0), features.size(1), -1)
 
     # Compute the Gram matrix: (N, C, C)
@@ -80,10 +65,6 @@ def gram_matrix(features, normalize=True):
         divisor = features.size(1) * features.size(2)  # C * (H*W)
         gram /= divisor
 
-    return gram
-    ############################################################################
-    #                               END OF YOUR CODE                           #
-    ############################################################################
     return gram
 
 # 9 points
@@ -105,14 +86,6 @@ def style_loss(feats, style_layers, style_targets, style_weights):
     Returns:
     - style_loss: A PyTorch Tensor holding a scalar giving the style loss.
     """
-    ############################################################################
-    # TODO: Computes the style loss at a set of layers.                        #
-    # Hint: you can do this with one for loop over the style layers, and       #
-    # should not be very much code (~5 lines).                                 #
-    # You will need to use your gram_matrix function.                          #
-    ############################################################################
-    # Replace "Pass" statement with your code
-    # Initialize the style loss to 0
     loss = 0.0
 
     # Loop over each layer index, target Gram matrix, and weight
@@ -127,9 +100,6 @@ def style_loss(feats, style_layers, style_targets, style_weights):
         loss += layer_loss
 
     return loss
-    ############################################################################
-    #                               END OF YOUR CODE                           #
-    ############################################################################
 
 # 8 points
 def tv_loss(img, tv_weight):
@@ -144,12 +114,6 @@ def tv_loss(img, tv_weight):
     - loss: PyTorch Variable holding a scalar giving the total variation loss
       for img weighted by tv_weight.
     """
-    ############################################################################
-    # TODO: Compute total variation loss.                                      #
-    # Your implementation should be vectorized and not require any loops!      #
-    ############################################################################
-    # Replace "Pass" statement with your code
-    # Compute the difference between adjacent pixel values in the height dimension
     vertical_diff = img[:, :, 1:, :] - img[:, :, :-1, :]
     # Compute the difference between adjacent pixel values in the width dimension
     horizontal_diff = img[:, :, :, 1:] - img[:, :, :, :-1]
@@ -161,9 +125,6 @@ def tv_loss(img, tv_weight):
     loss = tv_weight * loss
 
     return loss
-    ############################################################################
-    #                               END OF YOUR CODE                           #
-    ############################################################################
 
 # 10 points
 def guided_gram_matrix(features, masks, normalize=True):
@@ -180,12 +141,6 @@ def guided_gram_matrix(features, masks, normalize=True):
       (optionally normalized) guided Gram matrices for the N input images.
   """
   guided_gram = None
-  ##############################################################################
-  # TODO: Compute the guided Gram matrix from features.                        #
-  # Apply the regional guidance mask to its corresponding feature and          #
-  # calculate the Gram Matrix. You are allowed to use one for-loop in          #
-  # this problem.                                                              #
-  ##############################################################################
   # Replace "Pass" statement with your code
   # Get dimensions
   N, R, C, H, W = features.size()
@@ -212,9 +167,6 @@ def guided_gram_matrix(features, masks, normalize=True):
           gram[:, i] /= (C * H * W)
 
   return gram
-  ##############################################################################
-  #                               END OF YOUR CODE                             #
-  ##############################################################################
 
 # 9 points
 def guided_style_loss(feats, style_layers, style_targets, style_weights, content_masks):
@@ -237,11 +189,6 @@ def guided_style_loss(feats, style_layers, style_targets, style_weights, content
     Returns:
     - style_loss: A PyTorch Tensor holding a scalar giving the style loss.
     """
-    ############################################################################
-    # TODO: Computes the guided style loss at a set of layers.                 #
-    ############################################################################
-    # Replace "Pass" statement with your code
-    # Initialize the style loss to 0
     loss = 0.0
 
     # Loop over each layer index, target Gram matrix, and weight
@@ -263,6 +210,3 @@ def guided_style_loss(feats, style_layers, style_targets, style_weights, content
             loss += layer_loss
 
     return loss
-    ############################################################################
-    #                               END OF YOUR CODE                           #
-    ############################################################################

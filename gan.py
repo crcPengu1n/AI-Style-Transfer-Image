@@ -27,14 +27,9 @@ def sample_noise(batch_size, noise_dim, dtype=torch.float, device="cpu"):
       noise from a Gaussian distribution.
     """
     noise = None
-    ##############################################################################
-    # TODO: Implement sample_noise.                                              #
-    ##############################################################################
-    # Replace "pass" statement with your code
+
     noise = torch.randn(batch_size, noise_dim, dtype=dtype, device=device)
-    ##############################################################################
-    #                              END OF YOUR CODE                              #
-    ##############################################################################
+
 
     return noise
 
@@ -45,9 +40,7 @@ def discriminator():
     in the notebook.
     """
     model = None
-    ############################################################################
-    # TODO: Implement discriminator.                                           #
-    ############################################################################
+
     # Replace "pass" statement with your code
     model = nn.Sequential(
         # Fully connected layer from 784 to 400
@@ -69,9 +62,7 @@ def discriminator():
         nn.Linear(100, 1)
     )
     return model
-    ############################################################################
-    #                             END OF YOUR CODE                             #
-    ############################################################################
+
 
     return model
 
@@ -82,9 +73,7 @@ def generator(noise_dim=NOISE_DIM):
     in the notebook.
     """
     model = None
-    ############################################################################
-    # TODO: Implement generator.                                               #
-    ############################################################################
+
     # Replace "pass" statement with your code
     model = nn.Sequential(
         # Fully connected layer from noise_dim to 128
@@ -108,9 +97,7 @@ def generator(noise_dim=NOISE_DIM):
         nn.Tanh()
     )
     return model
-    ############################################################################
-    #                             END OF YOUR CODE                             #
-    ############################################################################
+
 
     return model
 
@@ -127,9 +114,7 @@ def discriminator_loss(logits_real, logits_fake):
     - loss: PyTorch Tensor containing (scalar) the loss for the discriminator.
     """
     loss = None
-    ##############################################################################
-    # TODO: Implement discriminator_loss.                                        #
-    ##############################################################################
+
     # Replace "pass" statement with your code
     # Calculate probabilities on logits
     real_probs = torch.sigmoid(logits_real)
@@ -149,9 +134,7 @@ def discriminator_loss(logits_real, logits_fake):
 
     # Total discriminator loss
     loss = (real_loss + fake_loss).mean()  # Averaging over all examples in the batch
-    ##############################################################################
-    #                              END OF YOUR CODE                              #
-    ##############################################################################
+
     return loss
 
 
@@ -166,9 +149,7 @@ def generator_loss(logits_fake):
     - loss: PyTorch Tensor containing the (scalar) loss for the generator.
     """
     loss = None
-    ##############################################################################
-    # TODO: Implement generator_loss.                                            #
-    ##############################################################################
+
     # Replace "pass" statement with your code
     # Calculate probabilities on logits
     fake_probs = torch.sigmoid(logits_fake)
@@ -181,9 +162,7 @@ def generator_loss(logits_fake):
     
     # Returning the mean loss across the batch
     loss = loss.mean()
-    ##############################################################################
-    #                              END OF YOUR CODE                              #
-    ##############################################################################
+
     return loss
 
 
@@ -199,14 +178,10 @@ def get_optimizer(model):
     - An Adam optimizer for the model with the desired hyperparameters.
     """
     optimizer = None
-    ##############################################################################
-    # TODO: Implement optimizer.                                                 #
-    ##############################################################################
+
     # Replace "pass" statement with your code
     optimizer = optim.Adam(model.parameters(), lr=1e-3, betas=(0.5, 0.999))
-    ##############################################################################
-    #                              END OF YOUR CODE                              #
-    ##############################################################################
+
     return optimizer
 
 
@@ -287,9 +262,7 @@ def build_dc_classifier():
     implementing the architecture in the notebook.
     """
     model = None
-    ############################################################################
-    # TODO: Implement build_dc_classifier.                                     #
-    ############################################################################
+
     # Replace "pass" statement with your code
     model = nn.Sequential(
         nn.Unflatten(1, (1, 28, 28)),
@@ -304,9 +277,7 @@ def build_dc_classifier():
         nn.LeakyReLU(0.01),
         nn.Linear(4*4*64, 1)
     )
-    ############################################################################
-    #                             END OF YOUR CODE                             #
-    ############################################################################
+
 
     return model
 
@@ -317,9 +288,7 @@ def build_dc_generator(noise_dim=NOISE_DIM):
     generator using the architecture described in the notebook.
     """
     model = None
-    ############################################################################
-    # TODO: Implement build_dc_generator.                                      #
-    ############################################################################
+
     # Replace "pass" statement with your code
     model = nn.Sequential(
         nn.Linear(noise_dim, 1024),
@@ -336,8 +305,6 @@ def build_dc_generator(noise_dim=NOISE_DIM):
         nn.Tanh(),
         nn.Flatten()
     )
-    ############################################################################
-    #                             END OF YOUR CODE                             #
-    ############################################################################
+
 
     return model
